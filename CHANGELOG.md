@@ -1,3 +1,7 @@
+## 1.0.3-release1
+
+* Finalize API Surface
+
 ## 1.0.3-alpha2
 
 * All callbacks are now run in the UI thread
