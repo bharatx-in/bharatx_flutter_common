@@ -16,6 +16,8 @@ import io.flutter.plugin.common.MethodChannel.Result
 import tech.bharatx.common.BharatXCommonUtilManager
 import tech.bharatx.common.CreditAccessManager
 import tech.bharatx.common.data_classes.CreditInfo
+import tech.bharatx.securityhelpers.SecurityStorageManager
+import tech.bharatx.securityhelpers.data_classes.BharatXTier
 
 /** BharatxFlutterCommonPlugin */
 class BharatxFlutterCommonPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -63,20 +65,27 @@ class BharatxFlutterCommonPlugin : FlutterPlugin, MethodCallHandler, ActivityAwa
         })
       }
       "confirmTransactionWithUser" -> {
+        SecurityStorageManager.storePartnerTier(applicationContext, BharatXTier.STARTUP)
         val confirmTransactionWithUserChannel = MethodChannel(binaryMessenger, "${signature}/confirmTransactionWithUser")
         BharatXCommonUtilManager.confirmTransactionWithUser(activity!!,
             call.argument<Long>("amountInPaise")!!,
             object : BharatXCommonUtilManager.TransactionConfirmationListener {
               override fun onUserAcceptedPrivacyPolicy() {
-                confirmTransactionWithUserChannel.invokeMethod("onUserAcceptedPrivacyPolicy", null)
+                activity?.runOnUiThread {
+                  confirmTransactionWithUserChannel.invokeMethod("onUserAcceptedPrivacyPolicy", null)
+                }
               }
 
               override fun onUserCancelledTransaction() {
-                confirmTransactionWithUserChannel.invokeMethod("onUserCancelledTransaction", null)
+                activity?.runOnUiThread {
+                  confirmTransactionWithUserChannel.invokeMethod("onUserCancelledTransaction", null)
+                }
               }
 
               override fun onUserConfirmedTransaction() {
-                confirmTransactionWithUserChannel.invokeMethod("onUserConfirmedTransaction", null)
+                activity?.runOnUiThread {
+                  confirmTransactionWithUserChannel.invokeMethod("onUserConfirmedTransaction", null)
+                }
               }
             })
       }
@@ -85,7 +94,9 @@ class BharatxFlutterCommonPlugin : FlutterPlugin, MethodCallHandler, ActivityAwa
         BharatXCommonUtilManager.showTransactionStatusDialog(activity!!, call.argument<Boolean>("isTransactionSuccessful")!!,
             object : BharatXCommonUtilManager.TransactionStatusShowListener {
               override fun onStatusDialogClose() {
-                showTransactionStatusDialogChannel.invokeMethod("onStatusDialogClose", null)
+                activity?.runOnUiThread {
+                  showTransactionStatusDialogChannel.invokeMethod("onStatusDialogClose", null)
+                }
               }
             })
       }
@@ -94,11 +105,15 @@ class BharatxFlutterCommonPlugin : FlutterPlugin, MethodCallHandler, ActivityAwa
         CreditAccessManager.registerTransactionId(activity!!, call.argument<String>("transactionId")!!,
             object : CreditAccessManager.RegisterTransactionListener {
               override fun onRegistered() {
-                registerTransactionIdChannel.invokeMethod("onRegistered", null)
+                activity?.runOnUiThread {
+                  registerTransactionIdChannel.invokeMethod("onRegistered", null)
+                }
               }
 
               override fun onFailure() {
-                registerTransactionIdChannel.invokeMethod("onFailure", null)
+                activity?.runOnUiThread {
+                  registerTransactionIdChannel.invokeMethod("onFailure", null)
+                }
               }
             })
       }

@@ -14,7 +14,7 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "1.0.3-alpha1"
+    version: "1.0.3-alpha2"
   bharatx_flutter_securityhelpers:
     dependency: "direct main"
     description:
