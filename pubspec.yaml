@@ -1,0 +1,20 @@
+name: bharatx_flutter_common
+description: Flutter wrapper for common from BharatX SDK
+version: 1.0.3-alpha1
+homepage: https://bharatx.tech/
+repository: https://github.com/bharatx-in/bharatx_flutter_common
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: tech.bharatx.bharatx_flutter_common
+        pluginClass: BharatxFlutterCommonPlugin
