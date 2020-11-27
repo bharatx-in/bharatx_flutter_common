@@ -117,6 +117,9 @@ class BharatxFlutterCommonPlugin : FlutterPlugin, MethodCallHandler, ActivityAwa
               }
             })
       }
+      "registerUserId" -> {
+        BharatXCommonUtilManager.registerUserId(activity!!, call.argument<String>("userId")!!)
+      }
       else -> {
         result.notImplemented()
       }

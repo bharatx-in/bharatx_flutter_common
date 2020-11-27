@@ -17,6 +17,7 @@ class _MyAppState extends State<MyApp> {
     try {
       await BharatXSecurityHelpers.storePartnerId("testPartnerId");
       await BharatXSecurityHelpers.storePartnerApiKey("testApiKey");
+      BharatXCommonUtilManager.registerUserId("testUser2");
       CreditInfo creditInfo = await BharatXCommonUtilManager.userCreditInfo;
       print("Credit Info ${creditInfo.creditTaken}/${creditInfo.creditLimit}");
       BharatXCommonUtilManager.confirmTransactionWithUser(10000, () {
