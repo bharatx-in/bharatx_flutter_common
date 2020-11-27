@@ -1,3 +1,8 @@
+## 1.0.5-release1
+
+* Upgrade common Android SDK to 1.0.5
+* Expose BharatXCommonUtilManager.registerUserId method to Flutter
+
 ## 1.0.3-release1
 
 * Finalize API Surface

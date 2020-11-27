@@ -94,6 +94,10 @@ class BharatXCommonUtilManager {
       return null;
     });
   }
+
+  static void registerUserId(String userId) {
+    _channel.invokeMethod('registerUserId', {"userId": userId});
+  }
 }
 
 class CreditInfo {
