@@ -1,3 +1,7 @@
+## 1.0.6-release1
+
+* Upgrade common Android SDK to 1.0.6
+
 ## 1.0.5-release1
 
 * Upgrade common Android SDK to 1.0.5
